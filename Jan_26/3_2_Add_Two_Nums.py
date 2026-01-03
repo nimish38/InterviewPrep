@@ -46,6 +46,6 @@ class Solution:
         print('None')
 
 S = Solution()
-l1, l2 = [2,4,3],[5,6,4]
-l3 = S.addTwoNumbers(S.getLinkedList(l1), S.getLinkedList(l2))
+l1, l2 = [9,9,9,9,9,9,9],[9,9,9,9]
+l3 = S.addTwoNumbers(S.getLinkedList(l1).next, S.getLinkedList(l2).next)
 S.printLinkedList(l3)
