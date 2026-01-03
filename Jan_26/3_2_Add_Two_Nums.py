@@ -31,4 +31,21 @@ class Solution:
             l3.next = ListNode(1)
         return res.next
 
+    def getLinkedList(self, arr):
+        head = ListNode(-1)
+        curr = head
+        for elem in arr:
+            curr.next = ListNode(elem)
+            curr = curr.next
+        return head
 
+    def printLinkedList(self, L):
+        while L:
+            print(L.val, end='-> ')
+            L = L.next
+        print('None')
+
+S = Solution()
+l1, l2 = [2,4,3],[5,6,4]
+l3 = S.addTwoNumbers(S.getLinkedList(l1), S.getLinkedList(l2))
+S.printLinkedList(l3)
