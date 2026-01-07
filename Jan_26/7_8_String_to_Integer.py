@@ -1,6 +1,6 @@
 class Solution(object):
     def myAtoi(self, s):
-        sign, num, start = 1, 0, False
+        sign, num, start = 1, '', False
         for char in s:
             if char == " " and not start:
                 continue
@@ -8,19 +8,18 @@ class Solution(object):
                 if char == '-':
                     sign =  -1
                 start = True
-
-            elif 47 < ord(char) < 58:
-                num *= 10
-                num += int(char)
+            elif char.isdigit():
+                num += char
                 start = True
             else:
                 break
+        if num:
+            num = int(num) * sign
+            if num < -(2**31):
+                return -(2**31)
+            elif num > 2**31 - 1:
+                return 2**31 - 1
+            return num
+        return 0
 
-        num *= sign
-        if num < -(2**31):
-            return -(2**31)
-        elif num > 2**31 - 1:
-            return 2**31 - 1
-        return num
-
-print(Solution().myAtoi(s = "-+12"))
+print(Solution().myAtoi(s = "0-1"))
