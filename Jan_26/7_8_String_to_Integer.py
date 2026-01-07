@@ -4,7 +4,7 @@ class Solution(object):
         for char in s:
             if char == " " and not start:
                 continue
-            elif char == '+' or char == '-' and not start:
+            elif( char == '+' or char == '-' ) and not start:
                 if char == '-':
                     sign =  -1
                 start = True
@@ -19,8 +19,8 @@ class Solution(object):
         num *= sign
         if num < -(2**31):
             return -(2**31)
-        elif num > 2**31:
-            return 2**31
+        elif num > 2**31 - 1:
+            return 2**31 - 1
         return num
 
-print(Solution().myAtoi(s = "-137z42"))
+print(Solution().myAtoi(s = "-+12"))
