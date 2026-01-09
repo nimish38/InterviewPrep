@@ -1,5 +1,6 @@
 class Solution(object):
     def longestCommonPrefix(self, strs):
+        strs.sort(key=lambda x: len(x))
         ref, best = strs[0], len(strs[0])
         for i in range(1, len(strs)):
             common = 0
