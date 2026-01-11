@@ -1,8 +1,9 @@
 class Solution(object):
     def fourSum(self, nums, target):
-        n, res, j = len(nums), [], 1
+        n, res, i = len(nums), [], 0
         nums.sort()
-        for i in range(n - 3):
+        while i < n - 3:
+            j = i + 1
             while j < n - 2:
                 k, l = j + 1, n - 1
                 while k < l:
@@ -22,6 +23,9 @@ class Solution(object):
                 while j < n - 2 and nums[j] == nums[j + 1]:
                     j += 1
                 j += 1
+            while i < n - 3  and nums[i] == nums[i + 1]:
+                i += 1
+            i += 1
         return res
 
 
