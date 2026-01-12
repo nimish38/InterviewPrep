@@ -5,16 +5,18 @@ class ListNode(object):
 
 class Solution(object):
     def removeNthFromEnd(self, head, n):
-        dummy,  = ListNode(-1)
+        dummy = ListNode(-1)
         dummy.next, first, second = head, dummy, dummy
         for _ in range(n):
             first = first.next
-        while second.next:
+        while first.next:
             first = first.next
             second = second.next
-        first.next = first.next.next
+        second.next = second.next.next
         return dummy.next
 
-
-
+a, b, c, d, e = ListNode(1), ListNode(2), ListNode(3), ListNode(4), ListNode(5)
+a.next, b.next, c.next, d.next = b, c, d, e
+x = Solution().removeNthFromEnd(a, 2)
+print(x.val)
 
