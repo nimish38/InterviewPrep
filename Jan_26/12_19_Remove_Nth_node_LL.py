@@ -16,7 +16,7 @@ class Solution(object):
         return dummy.next
 
 a, b, c, d, e = ListNode(1), ListNode(2), ListNode(3), ListNode(4), ListNode(5)
-a.next, b.next, c.next, d.next = b, c, d, e
-x = Solution().removeNthFromEnd(a, 2)
+# a.next, b.next, c.next, d.next = b, c, d, e
+x = Solution().removeNthFromEnd(a, 1)
 print(x.val)
 
