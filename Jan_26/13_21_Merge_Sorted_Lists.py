@@ -20,3 +20,18 @@ class Solution(object):
         if list1:
             curr.next = list1
         return head.next
+
+    def getLinkedList(self, arr):
+        head = ListNode(-1)
+        curr = head
+        for elem in arr:
+            curr.next = ListNode(elem)
+            curr = curr.next
+        return head.next
+
+
+s = Solution()
+a, b = s.getLinkedList([1,2,4]), s.getLinkedList([1,3,4])
+x = s.mergeTwoLists(a, b)
+print(x)
+
