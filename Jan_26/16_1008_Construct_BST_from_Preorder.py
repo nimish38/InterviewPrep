@@ -6,14 +6,18 @@ class TreeNode(object):
 
 class Solution(object):
     def bstFromPreorder(self, preorder):
-        inorder, n = sorted(preorder), len(preorder)
-        def constructBST(pre, ino):
-            if not pre:
+        inorder, n, self.pre = sorted(preorder), len(preorder), 0
+        def constructBST(inLeft, inRight):
+            if inRight < inLeft:
                 return None
-            root = TreeNode(pre[0])
-            ind = ino.index(pre[0])
-            root.left = constructBST(pre[1: ind + 1], ino[:ind])
-            root.right = constructBST(pre[ind + 1:], ino[ind + 1:])
+            root = TreeNode(preorder[self.pre])
+            ind = inorder.index(root.val)
+            self.pre += 1
+            root.left = constructBST(inLeft, ind - 1)
+            root.right = constructBST(ind + 1, inRight)
             return root
+        return constructBST(0, n - 1)
 
-        return constructBST(preorder, inorder)
+
+x = Solution().bstFromPreorder(preorder = [8,5,1,7,10,12])
+print(x)
