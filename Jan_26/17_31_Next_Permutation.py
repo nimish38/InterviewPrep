@@ -7,19 +7,26 @@ class Solution(object):
                 i += 1
                 j -= 1
 
-        i, j = len(nums) - 2, len(nums) - 1
-        while j >= 0:
-            while i >= 0 and nums[i] > nums[j]:
-                i -= 1
-            if i >= 0:
-                nums[i], nums[j] = nums[j], nums[i]
-                reverse(i)
-                return nums
-            else:
-                j = j - 1
-                i = j - 1
+        idx = -1
+        length = len(nums)
 
-        reverse(-1)
+        for i in range(length - 2, -1, -1):
+            if nums[i] < nums[i + 1]:
+                idx = i
+                break
+
+        if idx == -1:
+            reverse(-1)
+            return nums
+
+        reverse(idx)
+        newj = -1
+        for j in range(idx + 1, length):
+            if nums[idx] < nums[j]:
+                newj = j
+                break
+
+        nums[idx], nums[newj] = nums[newj], nums[idx]
         return nums
 
 
