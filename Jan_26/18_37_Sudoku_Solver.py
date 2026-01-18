@@ -1,42 +1,41 @@
 from collections import defaultdict
 class Solution(object):
     def solveSudoku(self, board):
-        row, col, box, self.empty = defaultdict(set), defaultdict(set), defaultdict(set), 81
+        empty = []
+        row = [set() for _ in range(9)]
+        col = [set() for _ in range(9)]
+        box = [set() for _ in range(9)]
         for i in range(9):
             for j in range(9):
                 if board[i][j] != '.':
-                    col[j].add(board[i][j])
-                    row[i].add(board[i][j])
-                    val = str(i // 3) + 'R' + str(j // 3) + 'C'
-                    box[val].add(board[i][j])
-                    self.empty -= 1
+                    num = int(board[i][j])
+                    col[j].add(num)
+                    row[i].add(num)
+                    val = (i // 3) * 3 + (j // 3)
+                    box[val].add(num)
+                else:
+                    empty.append((i, j))
 
-        def solve():
-            if self.empty == 0:
+        def solve(ind):
+            if ind == len(empty):
                 return True
-            for i in range(9):
-                for j in range(9):
-                    if board[i][j] == '.':
-                        for k in range(1, 10):
-                            x = str(k)
-                            val = str(i // 3) + 'R' + str(j // 3) + 'C'
-                            if x not in row[i] and x not in col[j] and x not in box[val]:
-                                board[i][j] = x
-                                col[j].add(board[i][j])
-                                row[i].add(board[i][j])
-                                box[val].add(board[i][j])        
-                                self.empty -= 1
-                                if solve():
-                                    return True
-                                col[j].remove(board[i][j])
-                                row[i].remove(board[i][j])
-                                box[val].remove(board[i][j])
-                                board[i][j] = '.'
-                                self.empty += 1
-                        return False
+            i, j = empty[ind]
+            val = (i // 3) * 3 + (j // 3)
+            for k in range(1, 10):
+                if k not in row[i] and k not in col[j] and k not in box[val]:
+                    board[i][j] = str(k)
+                    col[j].add(k)
+                    row[i].add(k)
+                    box[val].add(k)        
+                    if solve(ind + 1):
+                        return True
+                    col[j].remove(k)
+                    row[i].remove(k)
+                    box[val].remove(k)
+                    board[i][j] = '.'
             return False
             
-        solve()
+        solve(0)
         return board
     
 
