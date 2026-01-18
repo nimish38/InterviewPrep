@@ -1,14 +1,15 @@
 from collections import defaultdict
 class Solution(object):
     def solveSudoku(self, board):
-        row, col, filled = defaultdict(set), defaultdict(set), 0
+        row, col, box, self.empty = defaultdict(set), defaultdict(set), defaultdict(set), 81
         for i in range(9):
             for j in range(9):
                 if board[i][j] != '.':
-                    filled += 1
                     col[j].add(board[i][j])
                     row[i].add(board[i][j])
-        self.empty = 81 - filled
+                    val = str(i // 3) + 'R' + str(j // 3) + 'C'
+                    box[val].add(board[i][j])
+                    self.empty -= 1
 
         def solve():
             if self.empty == 0:
@@ -17,15 +18,20 @@ class Solution(object):
                 for j in range(9):
                     if board[i][j] == '.':
                         for k in range(1, 10):
-                            if chr(k) not in row[i] and chr(k) not in col[j]:
-                                board[i][j] = chr(k)
+                            x = str(k)
+                            val = str(i // 3) + 'R' + str(j // 3) + 'C'
+                            if x not in row[i] and x not in col[j] and x not in box[val]:
+                                board[i][j] = x
                                 col[j].add(board[i][j])
                                 row[i].add(board[i][j])
+                                box[val].add(board[i][j])        
                                 self.empty -= 1
                                 if solve():
                                     return True
                                 col[j].remove(board[i][j])
                                 row[i].remove(board[i][j])
+                                box[val].remove(board[i][j])
+                                board[i][j] = '.'
                                 self.empty += 1
                         return False
             return False
