@@ -9,15 +9,22 @@ class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return []
-        self.order = []
-        def inorder(node):
-            if not node:
-                return
-            inorder(node.left)
-            self.order.append(node.val)
-            inorder(node.right)
-        inorder(root)
-        return self.order
+        order, node, st = [], root, [root]
+        while st:
+            while node.left:
+                node = node.left
+                st.append(node)
+            node = st.pop()
+            order.append(node.val)
+            if node.right:
+                node = node.right
+                st.append(node)
+        return order
+
+
+
+        
+        
     
 
 a, b, c, d, e = TreeNode(2), TreeNode(1), TreeNode(4), TreeNode(3), TreeNode(5)
