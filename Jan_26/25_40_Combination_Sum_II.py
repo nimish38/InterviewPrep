@@ -6,9 +6,9 @@ class Solution(object):
             if curr == target:
                 res.append(list(combo))
                 return
-            if ind >= len(candidates):
-                return
             for i in range(ind, len(candidates)):
+                if i > ind and candidates[i] == candidates[i - 1]:
+                    continue
                 if curr + candidates[i] <= target:
                     combo.append(candidates[i])
                     solve(i + 1, curr + candidates[i], combo)
