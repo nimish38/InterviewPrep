@@ -3,22 +3,12 @@ class Solution(object):
         res, n = [], len(nums)
         def solve(ind):
             if ind >= n:
-                return
+                res.append(nums.copy())
             for i in range(ind, n):
-                for j in range(i + 1 , n):
-                    nums[i], nums[j] = nums[j], nums[i]
-                    res.append(nums.copy())
-                    solve(ind + 1)
-                    nums[i], nums[j] = nums[j], nums[i]
-        def permute(curr):
-            if len(curr) == n:
-                res.append(list(curr.keys()))
-            for i in nums:
-                if i not in curr:
-                    curr[i] = i
-                    permute(curr)
-                    del curr[i]
-        permute({})
+                nums[i], nums[ind] = nums[ind], nums[i]
+                solve(ind + 1)
+                nums[i], nums[ind] = nums[ind], nums[i]
+        solve(0)
         return res
 
-print(Solution().permute(nums = [1,2,3]))
+print(Solution().permute(nums = [1,2,3,4]))
