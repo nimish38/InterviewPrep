@@ -6,7 +6,8 @@ class Solution(object):
                 curr += nums[i]
             else:
                 curr = nums[i]
-            best = max(best, curr)
+            if curr > best:
+                best = curr
         return best
 
 print(Solution().maxSubArray(nums = [-2,1,-3,4,-1,2,1,-5,4]))
