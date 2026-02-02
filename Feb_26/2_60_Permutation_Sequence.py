@@ -1,29 +1,34 @@
+import math
 class Solution(object):
     def getPermutation(self, n, k):
         arr = []
         for i in range(1, n + 1):
             arr.append(i)
 
-        def permute():
-            def rev(x, y):
-                while x < y:
-                    arr[x], arr[y] = arr[y], arr[x]
-                    x += 1
-                    y -= 1
+        def rev(x, y):
+            while x < y:
+                arr[x], arr[y] = arr[y], arr[x]
+                x += 1
+                y -= 1
 
+        def permute():
             j = n - 1
-            while j > 0:
-                for k in range(j - 1, -1, -1):
-                    if arr[j] > arr[k]:
-                        arr[k], arr[j] = arr[j], arr[k]
-                        rev(k + 1, j)
-                        return
+            while j > 0 and arr[j] < arr[j - 1]:
                 j -= 1
             rev(j, n - 1)
+            x = j
+            for x in range(j, n):
+                if arr[x] > arr[j - 1]:
+                    break
+            arr[j - 1], arr[x] = arr[x], arr[j - 1]
 
-        for i in range(k):
+
+        if k == math.factorial(n):
+            rev(0, n - 1)
+            return "".join(map(str, arr))
+        for i in range(k - 1):
             permute()
         return "".join(map(str, arr))
 
 
-print(Solution().getPermutation(n = 3, k = 3))
+print(Solution().getPermutation(n = 4, k = 9))
