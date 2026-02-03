@@ -13,12 +13,13 @@ class Solution(object):
             cnt += 1
             last = curr
             curr = curr.next
-        cnt %= k
-        if cnt == 0:
+        if cnt < k:
+            k %= cnt
+        if k == 0:
             return head
         else:
             first, second = head, head
-            for _ in range(cnt):
+            for _ in range(k):
                 first = first.next
             while first.next:
                 first = first.next
@@ -27,3 +28,18 @@ class Solution(object):
             second.next = None
             last.next = head
             return new_head
+
+    def getLinkedList(self, arr):
+        head = ListNode(-1)
+        curr = head
+        for elem in arr:
+            curr.next = ListNode(elem)
+            curr = curr.next
+        return head.next
+
+
+s = Solution()
+x = s.getLinkedList([0,1,2])
+z = s.rotateRight(x, 4)
+print(z)
+
