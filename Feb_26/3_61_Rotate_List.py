@@ -13,7 +13,7 @@ class Solution(object):
             cnt += 1
             last = curr
             curr = curr.next
-        if cnt < k:
+        if cnt <= k:
             k %= cnt
         if k == 0:
             return head
@@ -39,7 +39,7 @@ class Solution(object):
 
 
 s = Solution()
-x = s.getLinkedList([0,1,2])
-z = s.rotateRight(x, 4)
+x = s.getLinkedList([0,1])
+z = s.rotateRight(x, 2)
 print(z)
 
