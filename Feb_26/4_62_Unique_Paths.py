@@ -5,3 +5,5 @@ class Solution(object):
             for j in range(1, n):
                 grid[i][j] = grid[i - 1][j] + grid[i][j - 1]
         return grid[-1][-1]
+
+print(Solution().uniquePaths(m = 3, n = 2))
