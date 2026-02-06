@@ -3,9 +3,9 @@ class Solution(object):
         m, n = len(word1), len(word2)
         def solve(i, j):
             if i == m:
-                return n - j - 1
+                return n - j
             if j == n:
-                return m - i - 1
+                return m - i
             if word1[i] == word2[j]:
                 return solve(i + 1, j + 1)
             ins = solve(i, j + 1)
@@ -13,3 +13,5 @@ class Solution(object):
             rep = solve(i + 1, j + 1)
             return 1 + min(ins, dele, rep)
         return solve(0, 0)
+
+print(Solution().minDistance(word1 = "intention", word2 = "execution"))
