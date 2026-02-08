@@ -1,24 +1,23 @@
 class Solution(object):
     def largestRectangleArea(self, heights):
-        n, res = len(heights), 0
-        pse, nse, st = [-1] * n, [n] * n, []
+        n, res, st = len(heights), 0, []
         for i in range(n):
-            while st and st[-1][0] >= heights[i]:
-                st.pop()
-            if st:
-              pse[i] = st[-1][1]
+            while st and st[-1][0] > heights[i]:
+                val, nse, pse = st.pop()[0], i, -1
+                if st:
+                    pse = st[-1][1]
+                area = val * (nse - pse -1)
+                if area > res:
+                    res = area
             st.append((heights[i], i))
-        st.clear()
-        for i in range(n - 1, -1, -1):
-            while st and st[-1][0] >= heights[i]:
-                st.pop()
+        nse = n
+        while st:
+            val, pse = st.pop()[0], -1
             if st:
-                nse[i] = st[-1][1]
-            st.append((heights[i], i))
-        for i in range(n):
-            val = heights[i] * (nse[i] - pse[i] - 1)
-            if val > res:
-                res = val
+                pse = st[-1][1]
+            area = val * (nse - pse - 1)
+            if area > res:
+                res = area
         return res
 
 
