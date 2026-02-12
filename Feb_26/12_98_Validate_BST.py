@@ -6,16 +6,14 @@ class TreeNode(object):
 
 class Solution(object):
     def isValidBST(self, root):
-        st = [[root, float('-inf'), float('inf')]]
-        while st:
-            node, left, right = st.pop(0)
+        def isValid(node, left, right):
+            if not node:
+                return True
             if not left < node.val < right:
                 return False
-            if node.left:
-                st.append([node.left, left, node.val])
-            if node.right:
-                st.append(([node.right, node.val, right]))
-        return True
+            return isValid(node.left, left, node.val) and isValid(node.right, node.val, right)
+        return isValid(root, float('-inf'), float('inf'))
+
 
 a, b, c, d, e = TreeNode(5), TreeNode(1), TreeNode(8), TreeNode(6), TreeNode(10)
 a.left, a.right = b, c
