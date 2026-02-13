@@ -21,3 +21,8 @@ class Solution(object):
                     qu.append(node.right)
             res.append(lvl)
         return res
+
+a, b, c, d, e = TreeNode(3), TreeNode(9), TreeNode(20), TreeNode(15), TreeNode(7)
+a.left, a.right = b, c
+c.left, c.right = d, e
+print(Solution().levelOrder(a))
