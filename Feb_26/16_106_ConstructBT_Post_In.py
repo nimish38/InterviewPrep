@@ -7,13 +7,14 @@ class TreeNode(object):
 class Solution(object):
     def buildTree(self, inorder, postorder):
         self.post = len(postorder) - 1
+        inorder = {inorder[i] : i  for i in range(len(inorder))}
         def build(inStart, inEnd):
             if inStart > inEnd:
                 return None
             value = postorder[self.post]
             self.post -= 1
             node = TreeNode(value)
-            ind = inorder.index(value)
+            ind = inorder[value]
             node.right = build(ind + 1, inEnd)
             node.left = build(inStart, ind - 1)
             return node
