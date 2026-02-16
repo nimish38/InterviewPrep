@@ -10,11 +10,15 @@ class Solution(object):
         def build(inStart, inEnd):
             if inStart > inEnd:
                 return None
-            val = postorder[self.post]
+            value = postorder[self.post]
             self.post -= 1
-            node = TreeNode(val)
-            ind = inorder.index(val)
+            node = TreeNode(value)
+            ind = inorder.index(value)
             node.right = build(ind + 1, inEnd)
             node.left = build(inStart, ind - 1)
             return node
         return build(0, len(inorder) - 1)
+    
+
+x = Solution().buildTree(inorder = [9,3,15,20,7], postorder = [9,15,7,20,3])
+print(x.val)
