@@ -8,7 +8,16 @@ class Solution(object):
     def maxDepth(self, root):
         if not root:
             return 0
-        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        depth, st = 0, [root]
+        while st:
+            depth += 1
+            for _ in range(len(st)):
+                node = st.pop(0)
+                if node.left:
+                    st.append(node.left)
+                if node.right:
+                    st.append(node.right)
+        return depth   
     
 
 a, b, c, d, e = TreeNode(3), TreeNode(9), TreeNode(20), TreeNode(15), TreeNode(7)
