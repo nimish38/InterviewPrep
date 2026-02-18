@@ -16,3 +16,7 @@ class Solution(object):
             node.right = build(mid + 1, r)
             return node
         return build(0, len(nums) - 1)
+
+
+x = Solution().sortedArrayToBST(nums = [-10,-3,0,5,9])
+print(x.val)
