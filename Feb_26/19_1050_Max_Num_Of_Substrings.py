@@ -1,6 +1,6 @@
 class Solution(object):
     def maxNumOfSubstrings(self, s):
-        chars, res = {}, []
+        chars, res, seen = {}, [], []
         for i in range(len(s)):
             if s[i] not in chars:
                 chars[s[i]] = [i, i]
@@ -14,13 +14,21 @@ class Solution(object):
                 curr_st, curr_ed = st.pop()
                 for i in range(curr_st, curr_ed + 1):
                     new_st, new_ed = chars[s[i]]
-                    if new_st < curr_st:
-                        st.append((new_st, curr_st - 1))
+                    if new_st < start:
+                        st.append((new_st, start - 1))
                         start = new_st
-                    if new_ed > curr_ed:
-                        st.append((curr_ed + 1, new_ed))
+                    if new_ed > end:
+                        st.append((end + 1, new_ed))
                         end = new_ed
             chars[key] = [start, end]
 
+        sorted_substrings = sorted(chars.values(), key= lambda x:x[1] - x[0])
+        for start, end in sorted_substrings:
+            if any( sta <= end and start <= ed for sta, ed in seen):
+                continue
+            res.append(s[start: end + 1])
+            seen.append((start, end))
+        return res
 
-print(Solution().maxNumOfSubstrings(s = "abbaccd"))
+
+print(Solution().maxNumOfSubstrings(s = "adefaddaccc"))
