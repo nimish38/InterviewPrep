@@ -11,3 +11,7 @@ class Solution(object):
         if not p or not q or p.val != q.val:
             return False
         return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
+a, b, c, x, y, z = TreeNode(1), TreeNode(2), TreeNode(3), TreeNode(1), TreeNode(2), TreeNode(3)
+a.left, a.right, x.left, x.right =  c, b, y, z
+print(Solution().isSameTree(a, x))
