@@ -15,14 +15,16 @@ class Solution(object):
             n1, n2 = s1.pop(), s2.pop()
             if n1.val != n2.val:
                 return False
-            if n1.left:
+            if n1.left and n2.left:
                 s1.append(n1.left)
-            if n2.left:
                 s2.append(n2.left)
-            if n1.right:
+            elif n1.left or n2.left:
+                return False
+            if n1.right and n2.right:
                 s1.append(n1.right)
-            if n2.right:
                 s2.append(n2.right)
+            elif n1.right or n2.right:
+                return False
         if s1 or s2:
             return False
         return True
