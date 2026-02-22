@@ -25,4 +25,8 @@ class Solution(object):
         return root
 
 
-
+a, b, c, d, e, f =  TreeNode(1), TreeNode(2), TreeNode(3), TreeNode(4), TreeNode(5), TreeNode(6)
+a.left, a.right = b, e
+b.left, b.right, e.right = c, d, f
+x = Solution().flatten(a)
+print(x.val)
