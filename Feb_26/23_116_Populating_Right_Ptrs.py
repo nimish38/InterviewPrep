@@ -5,23 +5,15 @@ class Node(object):
         self.right = right
         self.next = next
 
-class Solution(object):
+class Solution:
     def connect(self, root):
-        if not root:
-            return None
-        st, kids = [root], []
-        while st:
-            for _ in range(len(st)):
-                node = st.pop(0)
-                if not st:
-                    node.next = None
-                else:
-                    node.next = st[0]
-                if node.left:
-                    kids.append(node.left)
-                if node.right:
-                    kids.append(node.right)
-            st, kids = kids, []
+        if not root: return None
+        L, R, N = root.left, root.right, root.next
+        if L:
+            L.next = R
+            if N: R.next = N.left
+            self.connect(L)
+            self.connect(R)
         return root
 
 
