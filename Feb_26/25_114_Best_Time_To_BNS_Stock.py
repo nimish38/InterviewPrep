@@ -7,3 +7,6 @@ class Solution(object):
             if prices[i] < buy:
                 buy = prices[i]
         return best
+
+
+print(Solution().maxProfit(prices = [7,1,5,3,6,4]))
