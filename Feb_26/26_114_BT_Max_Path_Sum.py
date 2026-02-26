@@ -11,10 +11,15 @@ class Solution(object):
             if not node:
                 return 0
             left, right = get_max_path(node.left), get_max_path(node.right)
-            val = left + right + node.val
-            if val > self.best:
-                self.best = val
-            return val + max(left, right)
+            value = left + right + node.val
+            if value > self.best:
+                self.best = value
+            return node.val + max(left, right)
         get_max_path(root)
         return self.best
     
+
+a, b, c, d, e = TreeNode(-10), TreeNode(9), TreeNode(20), TreeNode(15), TreeNode(7), 
+a.left, a.right = b, c
+c.left, c.right = d, e
+print(Solution().maxPathSum(a))
