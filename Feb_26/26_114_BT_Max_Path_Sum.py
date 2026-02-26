@@ -6,20 +6,19 @@ class TreeNode(object):
 
 class Solution(object):
     def maxPathSum(self, root):
-        self.best = 0
+        self.best = float('-inf')
         def get_max_path(node):
             if not node:
                 return 0
             left, right = get_max_path(node.left), get_max_path(node.right)
             value = left + right + node.val
-            if value > self.best:
-                self.best = value
+            self.best = max(self.best, node.val, value, node.val + left, node.val + right)
             return node.val + max(left, right)
         get_max_path(root)
         return self.best
     
 
 a, b, c, d, e = TreeNode(-10), TreeNode(9), TreeNode(20), TreeNode(15), TreeNode(7), 
-a.left, a.right = b, c
-c.left, c.right = d, e
+# a.left, a.right = b, c
+# c.left, c.right = d, e
 print(Solution().maxPathSum(a))
