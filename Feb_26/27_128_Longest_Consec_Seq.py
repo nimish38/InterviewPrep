@@ -2,12 +2,10 @@ class Solution(object):
     def longestConsecutive(self, nums):
         if not nums:
             return 0
-        freq, curr, best = {}, 1, 0
-        for num in nums:
-            freq[num] = 1
-        for key in freq:
-            if key - 1 not in freq:
-                while key + 1 in freq:
+        nums, curr, best = set(nums), 1, 0
+        for key in nums:
+            if key - 1 not in nums:
+                while key + 1 in nums:
                     curr += 1
                     key += 1
                 best = max(curr, best)
