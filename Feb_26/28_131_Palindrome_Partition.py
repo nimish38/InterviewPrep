@@ -13,3 +13,5 @@ class Solution(object):
                     curr.pop()
         solve(0, [])
         return res
+
+print(Solution().partition(s = "aab"))
