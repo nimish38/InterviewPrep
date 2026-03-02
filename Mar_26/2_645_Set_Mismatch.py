@@ -1,6 +1,7 @@
 class Solution(object):
     def findErrorNums(self, nums):
-        for i in range(1, len(nums)):
+        nums.sort()
+        for i in range(len(nums)):
             if nums[i] != i + 1:
                 return [nums[i], i + 1]
         return None
