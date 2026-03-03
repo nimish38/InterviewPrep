@@ -3,28 +3,28 @@ class TreeNode(object):
         self.val = val
         self.left = left
         self.right = right
-
-class Solution(object):
-    def isSymmetric(self, root):
+class Solution:
+    def isSymmetric(self, root) -> bool:
         if not root:
             return True
-        st = [root]
-        while st:
-            level = []
-            for _ in range(len(st)):
-                node = st.pop(0)
-                if node.left:
-                    st.append(node.left)
-                    level.append(node.left.val)
-                else:
-                    level.append('#')
-                if node.right:
-                    st.append(node.right)
-                    level .append(node.right.val)
-                else:
-                    level.append('#')
-            if level != level[::-1]:
-                return False
-        return True
+
+        return self.mirror(root.left,root.right)
+
+    def mirror(self,right, left):
+        if not right and not left:
+            return True
+        if not right or not left:
+            return False
+        if right.val != left.val:
+            return False
+        
+        check_outside = self.mirror(left.left,right.right)
+        check_inside = self.mirror(left.right,right.left)
+
+        return check_outside and check_inside
+
+        
+
+        
                 
 
