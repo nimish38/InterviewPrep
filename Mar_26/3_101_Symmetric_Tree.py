@@ -10,20 +10,21 @@ class Solution(object):
             return True
         st = [root]
         while st:
-            level = '#'
+            level = []
             for _ in range(len(st)):
                 node = st.pop(0)
                 if node.left:
                     st.append(node.left)
-                    level += node.left.val + '#'
+                    level.append(node.left.val)
                 else:
-                    level += 'N#'
+                    level.append('#')
                 if node.right:
                     st.append(node.right)
-                    level += node.right.val + '#'
+                    level .append(node.right.val)
                 else:
-                    level += 'N#'
+                    level.append('#')
             if level != level[::-1]:
                 return False
         return True
                 
+
