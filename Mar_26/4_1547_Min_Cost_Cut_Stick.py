@@ -1,25 +1,16 @@
 class Solution(object):
     def minCost(self, n, cuts):
-        self.cost = float('inf')
-        def solve(stick, curr, amt):
-            if len(curr) == 0:
-                self.cost = min(self.cost, amt)
-                return
-            for cut in curr:
-                for l,r in stick:
-                    if l < cut < r:
-                        stick.remove((l, r))
-                        curr.remove(cut)
-                        amt += r - l
-                        stick.add((l, cut))
-                        stick.add((cut, r))
-                        solve(stick, curr, amt)
-                        stick.add((l, r))
-                        curr.add(cut)
-                        amt -= r - l
-                        stick.remove((l, cut))
-                        stick.remove((cut, r))
-        solve({(0, n)}, set(cuts), 0)
-        return self.cost
+        cuts.extend([0, n])
+        cuts.sort()
+        def solve(arr):
+            if len(arr) <= 2:
+                return 0
+            val = float('inf')
+            for i in range(1, len(arr) - 1):
+                curr = solve(arr[: i + 1]) + solve(arr[i:]) + (arr[-1] - arr[0])
+                val = min(val, curr)
+            return val
+        return n + solve(cuts)
 
-print(Solution().minCost(n = 9, cuts = [5,6,1,4,2]))
+
+print(Solution().minCost(n = 7, cuts = [1,3,4,5]))
