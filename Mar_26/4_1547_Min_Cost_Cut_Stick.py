@@ -10,14 +10,16 @@ class Solution(object):
                     if l < cut < r:
                         stick.remove((l, r))
                         curr.remove(cut)
-                        amt += l - r
+                        amt += r - l
                         stick.add((l, cut))
-                        stick.add((cut, l))
+                        stick.add((cut, r))
                         solve(stick, curr, amt)
                         stick.add((l, r))
                         curr.add(cut)
-                        amt -= l - r
+                        amt -= r - l
                         stick.remove((l, cut))
-                        stick.remove((cut, l))
+                        stick.remove((cut, r))
         solve({(0, n)}, set(cuts), 0)
         return self.cost
+
+print(Solution().minCost(n = 9, cuts = [5,6,1,4,2]))
