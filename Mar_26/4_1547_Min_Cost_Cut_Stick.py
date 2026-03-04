@@ -2,7 +2,8 @@ class Solution(object):
     def minCost(self, n, cuts):
         cuts.extend([0, n])
         cuts.sort()
-        memo = [[-1] * (n + 1) for _ in range(n + 1)]
+        l = len(cuts) + 1
+        memo = [[-1] * (l) for _ in range(l)]
         def solve(l, r):
             if r - l < 2:
                 return 0
