@@ -12,6 +12,7 @@ class Solution(object):
         while curr:
             mapping[curr] = Node(curr.val)
             curr = curr.next
+        mapping[None] = None
         curr = head
         while curr:
             new = mapping[curr]
