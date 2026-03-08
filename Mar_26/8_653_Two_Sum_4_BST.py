@@ -4,19 +4,17 @@ class TreeNode(object):
         self.left = left
         self.right = right
 
-class Solution(object):
+class Solution:
     def findTarget(self, root, k):
-        seen, st = {}, [root]
-        while st:
-            node = st.pop(0)
+        seen = set()
+        def dfs(node):
+            if not node:
+                return False 
             if k - node.val in seen:
                 return True
-            seen[node.val] = 1
-            if node.left:
-                st.append(node.left)
-            if node.right:
-                st.append(node.right)
-        return False
+            seen.add(node.val)
+            return dfs(node.left) or dfs(node.right)
+        return dfs(root)
     
 
 a, b, c, d, e, f = TreeNode(5), TreeNode(3), TreeNode(6), TreeNode(2), TreeNode(4), TreeNode(7)
