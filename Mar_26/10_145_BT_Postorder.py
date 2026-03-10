@@ -7,12 +7,12 @@ class TreeNode(object):
 class Solution(object):
     def postorderTraversal(self, root):
         if not root: return []
-        res = []
-        def postorder(node):
-            if not node:
-                return None
-            postorder(node.left)
-            postorder(node.right)
+        res, st = [], [root]
+        while st:
+            node = st.pop()
             res.append(node.val)
-        postorder(root)
-        return res
+            if node.left:
+                st.append(node.left)
+            if node.right:
+                st.append(node.right)
+        return res[::-1]
