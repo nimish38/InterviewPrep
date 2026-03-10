@@ -5,12 +5,13 @@ def __init__(self, val=0, left=None, right=None):
 
 class Solution(object):
     def preorderTraversal(self, root):
-        res = []
-        def preorder(node):
-            if not node:
-                return
+        if not root: return []
+        res, st = [], [root]
+        while st:
+            node = st.pop()
             res.append(node.val)
-            preorder(node.left)
-            preorder(node.right)
-        preorder(root)
+            if node.right:
+                st.append(node.right)
+            if node.left:
+                st.append(node.left)
         return res
