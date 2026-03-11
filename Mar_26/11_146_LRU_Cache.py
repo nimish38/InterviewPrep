@@ -19,12 +19,11 @@ class LRUCache(object):
         return self.map[key].val
 
     def put(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: None
-        """
-        
+        if len(self.map) == self.cap:
+            self.removeNode()
+        node = DoubleLL(value)
+        self.map[key] = node
+        self.updateLRU(node)
 
 
 # Your LRUCache object will be instantiated and called as such:
