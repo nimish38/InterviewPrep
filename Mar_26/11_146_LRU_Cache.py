@@ -4,7 +4,6 @@ class DoubleLL(object):
         self.next = next
         self.prev = prev
 
-
 class LRUCache(object):
     def __init__(self, capacity):
         self.cap, self.map = capacity, {}
@@ -24,6 +23,18 @@ class LRUCache(object):
         node = DoubleLL(value)
         self.map[key] = node
         self.updateLRU(node)
+
+    def removeNode(self):
+        last = self.tail.prev
+        new_last = last.prev
+        new_last.next, self.tail.prev = self.tail, new_last
+
+    def updateLRU(self, node):
+        new_prev, new_next = node.prev, node.next
+        new_prev.next, new_next.prev = new_next, new_prev
+        first = self.head.next
+        self.head.next, first.prev = node, node
+        node.prev, node.next = self.head, first
 
 
 # Your LRUCache object will be instantiated and called as such:
