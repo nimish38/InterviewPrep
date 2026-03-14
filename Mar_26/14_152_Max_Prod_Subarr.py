@@ -1,14 +1,14 @@
 class Solution(object):
     def maxProduct(self, nums):
-        n, best = len(nums), float('-inf')
+        n, best, pre, suf = len(nums), float('-inf'), 1, 1
         for i in range(n):
-            curr = 1
-            for j in range(i, n):
-                curr *= nums[j]
-                if nums[j] == 0:
-                    break
-                if curr > best:
-                    best = curr
+            pre *= nums[i]
+            suf *= nums[n - i - 1]
+            best = max(best, pre, suf)
+            if pre == 0:
+                pre = 1
+            if suf == 0:
+                suf = 1
         return best
 
 print(Solution().maxProduct(nums = [2,3,-2,4]))
