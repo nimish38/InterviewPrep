@@ -1,6 +1,6 @@
 class Solution(object):
     def maxProduct(self, nums):
-        n, best = len(nums), 0
+        n, best = len(nums), max(nums)
         for i in range(1, n + 1):
             for j in range(n - i + 1):
                 curr = 1
