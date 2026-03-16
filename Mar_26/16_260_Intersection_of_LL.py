@@ -3,28 +3,14 @@ class ListNode(object):
         self.val = x
         self.next = None
 
-class Solution(object):
-    def getIntersectionNode(self, headA, headB):
-        def findLength(head):
-            p, cnt = head, 0
-            while p:
-                cnt += 1
-                p = p.next
-            return cnt
-        def moveAhead(head, val):
-            for _ in range(val):
-                head = head.next
-            return head
-        l1, l2 = findLength(headA), findLength(headB)
-        diff = l1 - l2
-        if diff > 0:
-            headA = moveAhead(headA, diff)
-        else:
-            headB = moveAhead(headB, abs(diff))
-        while headA and headB and headA != headB:
-            headA = headA.next
-            headB = headB.next
-        return headA
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        lista = headA
+        listb = headB
+        while lista != listb:
+            lista = lista.next if lista else headB
+            listb = listb.next if listb else headA 
+        return listb
 
 
     
