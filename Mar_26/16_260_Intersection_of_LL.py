@@ -5,13 +5,17 @@ class ListNode(object):
 
 class Solution(object):
     def getIntersectionNode(self, headA, headB):
-        nodes = set()
-        while headA:
-            nodes.add(headA)
+        def reverse(head):
+            p, q = head, head.next
+            while q:
+                r = q.next
+                q.next = p
+                p, q = q, r
+            head.next = None
+            return p 
+        headA, headB, inter = reverse(headA), reverse(headB), None
+        while headB == headA:
+            inter = headA
             headA = headA.next
-        
-        while headB:
-            if headB in nodes:
-                return headB
             headB = headB.next
-        return None
+        return inter
