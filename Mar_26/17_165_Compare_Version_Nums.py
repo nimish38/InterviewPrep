@@ -1,20 +1,38 @@
 class Solution(object):
     def compareVersion(self, version1, version2):
-        version1, version2, i = list(map(int, version1.split('.'))),  list(map(int, version2.split('.'))), 0
-        while i < min(len(version1), len(version2)):
-            if version1[i] < version2[i]:
+        i, j, l1, l2 = 0, 0, len(version1), len(version2)
+        while i < l1 and j < l2:
+            num1, num2 = '', ''
+            while i < l1 and version1[i] != '.':
+                num1 += version1[i]
+                i += 1
+            while j < l2 and version2[j] != '.':
+                num2 += version2[j]
+                j += 1
+            i += 1
+            j += 1
+            num1, num2 = int(num1), int(num2)
+            if num1 < num2:
                 return -1
-            elif version1[i] > version2[i]:
+            elif num1 > num2:
+                return 1
+        while i < l1:
+            num1 = ''
+            while i < l1 and version1[i] != '.':
+                num1 += version1[i]
+                i += 1
+            if int(num1) > 0:
                 return 1
             i += 1
-        if i < len(version1):
-            for j in range(i, len(version1)):
-                if version1[j] > 0:
-                    return 1
-        if i < len(version2) :
-            for j in range(i, len(version2)):
-                if version2[j] > 0:
-                    return -1
+        while j < l2:
+            num2 = ''
+            while j < l2 and version2[j] != '.':
+                num2 += version2[j]
+                j += 1
+            if int(num2) > 0:
+                return -1
+            j += 1
         return 0
 
-print(Solution().compareVersion(version1 = "1", version2 = "1.1"))
+
+print(Solution().compareVersion(version1 = "1.0", version2 = "1.0.0.0"))
