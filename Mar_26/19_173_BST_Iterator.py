@@ -7,22 +7,27 @@ class TreeNode:
 class BSTIterator:
 
     def __init__(self, root):
-        self.inorder, self.curr = [-1], 0
-        self.traverse(root)
-
-    def traverse(self, node):
-        if node.left:
-            self.traverse(node.left)
-        self.inorder.append(node.val)
-        if node.right:
-            self.traverse(node.right)
+        self.st, self.curr = [], root
+        while self.curr.left:
+            self.st.append(self.curr)
+            self.curr = self.curr.left
 
     def next(self) -> int:
-        self.curr += 1
-        return self.inorder[self.curr]
+        node = self.curr
+        if node.right:
+            self.curr = node.right
+            while self.curr.left:
+                self.st.append(self.curr)
+                self.curr = self.curr.left
+        else:
+            if self.st:
+                self.curr = self.st.pop()
+            else:
+                self.curr = None
+        return node.val
 
     def hasNext(self) -> bool:
-        if self.curr == len(self.inorder) - 1:
+        if not self.curr and not self.st:
             return False
         return True
 
