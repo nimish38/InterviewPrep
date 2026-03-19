@@ -1,7 +1,3 @@
-# Definition for a binary tree node.
-from idlelib.configdialog import tracers
-
-
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -31,6 +27,15 @@ class BSTIterator:
         return True
 
 # Your BSTIterator object will be instantiated and called as such:
-# obj = BSTIterator(root)
-# param_1 = obj.next()
-# param_2 = obj.hasNext()
+a, b, c, d, e = TreeNode(7), TreeNode(3), TreeNode(15), TreeNode(9), TreeNode(20)
+a.left, a.right, c.left, c.right = b, c, d, e
+obj = BSTIterator(a)
+print(obj.next())
+print(obj.next())
+print(obj.hasNext())
+print(obj.next())
+print(obj.hasNext())
+print(obj.next())
+print(obj.hasNext())
+print(obj.next())
+print(obj.hasNext())
