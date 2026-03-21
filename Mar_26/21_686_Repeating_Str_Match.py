@@ -1,5 +1,7 @@
 class Solution(object):
     def repeatedStringMatch(self, a, b):
+        if len(set(b) - set(a)) > 0:
+            return -1
         i, j, m, n = 0, 0, len(a), len(b)
         def checkRematch(x, y):
             cnt = 1
@@ -18,8 +20,8 @@ class Solution(object):
             x = checkRematch(i, j)
             if x != -1:
                 return x
-            j = 0
+            j, i = 0, i + 1
         return -1
 
 
-print(Solution().repeatedStringMatch(a = "a", b = "aa"))
+print(Solution().repeatedStringMatch(a = "aaac", b = "aac"))
