@@ -17,11 +17,12 @@ class Solution(object):
         while i < m:
             while i < m and a[i] != b[j]:
                 i += 1
-            x = checkRematch(i, j)
-            if x != -1:
-                return x
-            j, i = 0, i + 1
+            if i < m:
+                x = checkRematch(i, j)
+                if x != -1:
+                    return x
+                j, i = 0, i + 1
         return -1
 
 
-print(Solution().repeatedStringMatch(a = "aaac", b = "aac"))
+print(Solution().repeatedStringMatch(a = "abcabcabcabc", b = "abac"))
