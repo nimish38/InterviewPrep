@@ -6,7 +6,7 @@ class Solution(object):
         indegree, adj, que, res = [0] * numCourses, defaultdict(list), deque(), 0
         for a,b in prerequisites:
             indegree[a] += 1
-            adj[a].append(b)
+            adj[b].append(a)
         for _ in range(numCourses):
             if indegree[_] == 0:
                 que.append(_)
@@ -19,3 +19,5 @@ class Solution(object):
                     que.append(nei)
                     res += 1
         return res == numCourses
+
+print(Solution().canFinish(numCourses = 2, prerequisites = [[1,0],[0,1]]))
