@@ -2,11 +2,11 @@ import heapq
 
 class Solution(object):
     def findKthLargest(self, nums, k):
-        x = []
+        arr = []
         for num in nums:
-            heapq.heappush(x, -num)
-        for _ in range(k - 1):
-            heapq.heappop(x)
-        return -heapq.heappop(x)
+            heapq.heappush(arr, num)
+            if len(arr) > k:
+                heapq.heappop(arr)
+        return heapq.heappop(arr)
 
 print(Solution().findKthLargest(nums = [3,2,1,5,6,4], k = 2))
