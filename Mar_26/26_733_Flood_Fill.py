@@ -13,3 +13,5 @@ class Solution(object):
                 if 0 <= x < m and 0 <= y < n and image[x][y] == origin:
                     st.append((x, y))
         return image
+
+print(Solution().floodFill( [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0))
