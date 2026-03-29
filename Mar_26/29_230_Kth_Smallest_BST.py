@@ -6,21 +6,21 @@ class TreeNode(object):
 
 class Solution(object):
     def kthSmallest(self, root, k):
-        inorder, st, curr = [], [], root
+        st, curr = [], root
         while curr:
             st.append(curr)
             curr = curr.left
         while st:
             curr = st.pop()
-            inorder.append(curr.val)
+            k -= 1
+            if k == 0:
+                return curr.val
             if curr.right:
                 curr = curr.right
                 while curr:
                     st.append(curr)
                     curr = curr.left
-            if len(inorder) == k:
-                return inorder
-        return inorder
+        return curr.val
 
 
 a, b, c, d, e, f = TreeNode(5), TreeNode(3), TreeNode(6), TreeNode(2), TreeNode(4), TreeNode(1)
