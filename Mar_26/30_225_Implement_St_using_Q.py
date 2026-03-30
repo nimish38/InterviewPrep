@@ -7,6 +7,8 @@ class MyStack(object):
         self.cnt += 1
 
     def pop(self):
+        if len(self.q1) == 1:
+            return self.q1.pop(0)
         top, last = self.q1.pop(0), -1
         self.q1.append(top)
         while True:
@@ -18,6 +20,8 @@ class MyStack(object):
         return last[0]
 
     def top(self):
+        if len(self.q1) == 1:
+            return self.q1[0][0]
         top, last = self.q1.pop(0), -1
         self.q1.append(top)
         while True:
