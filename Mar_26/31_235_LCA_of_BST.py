@@ -15,3 +15,6 @@ class Solution(object):
                 return root
         return None
 
+a, b, c, d, e, f, g, h, i = TreeNode(6), TreeNode(2), TreeNode(8), TreeNode(0), TreeNode(4), TreeNode(7), TreeNode(9), TreeNode(3), TreeNode(5)
+a.left, a.right, b.left, b.right, c.left, c.right, e.left, e.right = b, c, d, e, f, g, h, i
+print(Solution().lowestCommonAncestor(a, h, i,).val)
