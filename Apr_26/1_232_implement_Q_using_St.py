@@ -7,20 +7,14 @@ class MyQueue(object):
         self.s1.append(x)
 
     def pop(self):
-        while self.s1:
-            self.s2.append(self.s1.pop())
-        x = self.s2.pop()
-        while self.s2:
-            self.s1.append(self.s2.pop())
-        return x
+        self.peek()
+        return self.s2.pop()
 
     def peek(self):
-        while self.s1:
-            self.s2.append(self.s1.pop())
-        x = self.s2[-1]
-        while self.s2:
-            self.s1.append(self.s2.pop())
-        return x
+        if not self.s2:
+            while self.s1:
+                self.s2.append(self.s1.pop())
+        return self.s2[-1]
 
     def empty(self):
-        return len(self.s1) == 0
+        return not self.s1 and not self.s2
