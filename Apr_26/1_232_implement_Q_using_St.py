@@ -18,3 +18,12 @@ class MyQueue(object):
 
     def empty(self):
         return not self.s1 and not self.s2
+
+
+q = MyQueue()
+q.push(1)
+q.push(2)
+print(q.pop())
+print(q.pop())
+q.push(3)
+print(q.pop())
