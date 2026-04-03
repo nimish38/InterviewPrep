@@ -14,8 +14,7 @@ class Solution(object):
                 return node
             if left:
                 return left
-            if right:
-                return right
-            return None
+            return right
+
         return solve(root)
 
