@@ -4,20 +4,14 @@ from collections import deque
 class Solution(object):
     def maxSlidingWindow(self, nums, k):
         deq, res = deque(), []
-        for i in range(k):
-            while deq and nums[deq[0]] < nums[i]:
+        for i in range(len(nums)):
+            while deq and deq[0] <= i - k:
                 deq.popleft()
+            while deq and nums[deq[-1]] < nums[i]:
+                deq.pop()
             deq.append(i)
-        for i in range(k, len(nums)):
-            while deq[0] < i - k:
-                deq.popleft()
-            res.append(nums[deq[0]])
-            while deq and nums[deq[0]] < nums[i]:
-                deq.popleft()
-            deq.append(i)
-        while deq[0] < len(nums) - k:
-            deq.popleft()
-        res.append(nums[deq[0]])
+            if i >= k - 1:
+                res.append(nums[deq[0]])
         return res
 
 
