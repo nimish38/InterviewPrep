@@ -1,7 +1,7 @@
 class Solution(object):
     def maximizeXor(self, nums, queries):
         nums.sort()
-        offline, res, trie = [], [-1] * len(queries), {}
+        offline, res, trie, flag = [], [-1] * len(queries), {}, False
         for i in range(len(queries)):
             x, m = queries[i]
             offline.append([m, x, i])
@@ -30,12 +30,14 @@ class Solution(object):
         i = 0
         for m, x, ind in offline:
             while i < len(nums) and nums[i] <= m:
+                flag = True
                 insert(nums[i])
-            val = getMax(x)
-            if val == 0:
-                res[ind] = -1
-            else:
+                i += 1
+            if flag:
+                val = getMax(x)
                 res[ind] = val
+            else:
+                res[ind] = -1
         return res
 
 
