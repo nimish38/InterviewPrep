@@ -1,15 +1,24 @@
 class Solution(object):
     def isBipartite(self, graph):
-        n, color, st = len(graph), [-1] * len(graph), [(0, 1)]
-        while st:
-            node, col = st.pop()
-            color[node] = col
-            for nei in graph[node]:
-                if color[nei] == col:
+        n, color, vis = len(graph), [-1] * len(graph), 1
+        def DFS(value, c):
+            st = [(value, c)]
+            color[value] = c
+            while st:
+                node, col = st.pop()
+                for nei in graph[node]:
+                    if color[nei] == col:
+                        return False
+                    if color[nei] == -1:
+                        st.append((nei, 1 - col))
+                        color[nei] = 1 - col
+            return True
+
+        for v in range(n):
+            if color[v] == -1:
+                if not DFS(v, 1):
                     return False
-                if color[nei] == -1:
-                    st.append((nei, 1 - col))
         return True
 
-
+print(Solution().isBipartite(graph = [[1,3],[0,2],[1,3],[0,2]]))
 
