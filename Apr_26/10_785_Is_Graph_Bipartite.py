@@ -1,11 +1,14 @@
+from collections import deque
+
+
 class Solution(object):
     def isBipartite(self, graph):
         n, color, vis = len(graph), [-1] * len(graph), 1
         def DFS(value, c):
-            st = [(value, c)]
+            st = deque([(value, c)])
             color[value] = c
             while st:
-                node, col = st.pop()
+                node, col = st.popleft()
                 for nei in graph[node]:
                     if color[nei] == col:
                         return False
