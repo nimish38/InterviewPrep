@@ -8,7 +8,6 @@ class TreeNode(object):
         self.right = None
 
 class Codec:
-
     def serialize(self, root):
         if not root:
             return ''
@@ -48,4 +47,5 @@ class Codec:
 a, b, c, d, e = TreeNode(1), TreeNode(2), TreeNode(3), TreeNode(4), TreeNode(5)
 a.left, a.right, c.left, c.right = b, c, d, e
 x = Codec().serialize(a)
-print(x)
+y = Codec().deserialize(x)
+print(y)
