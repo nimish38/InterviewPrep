@@ -1,18 +1,15 @@
-class Solution(object):
-    def lengthOfLIS(self, nums):
-        n = len(nums)
-        memo = [[-1] * n for _ in range(n + 1)]
+import bisect
 
-        def solve(ind, last):
-            if ind >= n:
-                return 0
-            if memo[ind][last + 1] == -1:
-                take, skip = -1, -1
-                if last == -1 or nums[ind] > nums[last]:
-                    take = 1 + solve(ind + 1, ind)
-                skip = solve(ind + 1, last)
-                memo[ind][last + 1] = max(take, skip)
-            return memo[ind][last + 1]
-        return solve(0, -1)
 
-print(Solution().lengthOfLIS(nums = [3,5,6,2,5,4,19,5,6,7,12]))
+class Solution:
+    def lengthOfLIS(self, nums) -> int:
+        n, arr = len(nums), []
+        for i in range(n):
+            val = bisect.bisect_left(arr, nums[i])
+            if val == len(arr):
+                arr.append(nums[i])
+            else:
+                arr[val] = nums[i]
+        return len(arr)
+
+print(Solution().lengthOfLIS(nums =[0,1,0,3,2,3]))
