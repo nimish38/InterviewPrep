@@ -1,21 +1,19 @@
-class Solution(object):
-    def lengthOfLIS(self, nums):
+class Solution:
+    def lengthOfLIS(self, nums) -> int:
         n = len(nums)
-        memo = [[-1] * n for _ in range(n + 1)]
+        memo = [[-1] *( n + 1 ) for _ in range(n + 1)]
 
-        def solve(ind, last, ans):
+        def solve(ind, prev):
             if ind >= n:
-                return ans
-            if memo[ind][last + 1] == -1:
-                take, skip = -1, -1
-                if last == -1:
-                    take = solve(ind + 1, ind, ans + 1)
-                else:
-                    if nums[ind] > nums[last]:
-                        take = solve(ind + 1, ind, ans + 1)
-                skip = solve(ind + 1, last, ans)
-                memo[ind][last + 1] = max(take, skip)
-            return memo[ind][last + 1]
-        return solve(0, -1, 0)
+                return 0
+            if memo[ind][prev] == -1:
+                take, skip = 0, 0
+                if prev == -1 or nums[ind] > nums[prev]:
+                    take = 1 + solve(ind + 1, ind)
+                skip = solve(ind + 1, prev)
+                memo[ind][prev] = max(take, skip)
+            return memo[ind][prev]
 
-print(Solution().lengthOfLIS(nums = [0,1,0,3,2,3]))
+        return solve(0, -1)
+
+print(Solution().lengthOfLIS(nums = [3,5,6,2,5,4,19,5,6,7,12]))
