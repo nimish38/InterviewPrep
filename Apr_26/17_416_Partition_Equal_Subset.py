@@ -3,7 +3,6 @@ class Solution(object):
         n, target = len(nums), sum(nums)
         if target % 2:
             return False
-        nums.sort()
         ans = target // 2
         memo = [[-1] * (ans + 1) for _ in range(n)]
         def solve(ind, curr):
@@ -16,8 +15,8 @@ class Solution(object):
                 else:
                     if combo < ans:
                         take = solve(ind + 1, combo)
-                    skip = solve(ind + 1, curr)
-                    memo[ind][curr] =  take or skip
+                        skip = solve(ind + 1, curr)
+                        memo[ind][curr] =  take or skip
             return memo[ind][curr]
         return solve(0, 0)
 
