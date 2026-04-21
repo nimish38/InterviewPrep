@@ -5,30 +5,40 @@ class TreeNode(object):
         self.left = left
         self.right = right
 
-class Custom(object):
-    def __init__(self, sum, isBST, maxLeft, maxRight):
-        self.sum = sum
-        self.isBST = isBST
-        self.maxLeft = maxLeft
-        self.maxRight = maxRight
 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution(object):
     def maxSumBST(self, root):
-        self.best = 0
-        def solve(node):
-            if not node:
-                return Custom(0, True, None, None)
-            left, right = solve(node.left), solve(node.right)
-            if left.isBST and right.isBST and (left.maxRight is None or left.maxRight < node.val) and (right.maxLeft is None or node.val < right.maxLeft):
-                value = node.val + left.sum + right.sum
-                self.best = max(self.best, value)
-                new_min = left.maxLeft if left.maxLeft is not None else node.val
-                new_max = right.maxRight if right.maxRight is not None else node.val
-                return Custom(value, True, new_min, new_max)
-            return Custom(0, False, None, None)
+        self.ans = 0
 
-        solve(root)
-        return self.best
+        def dfs(node):
+            if not node:  #
+                return True, None, None, 0
+
+            l_bst, l_min, l_max, l_sum = dfs(node.left)
+            r_bst, r_min, r_max, r_sum = dfs(node.right)
+
+            if (l_bst and r_bst and
+                    (l_max is None or l_max < node.val) and
+                    (r_min is None or node.val < r_min)):
+                total = l_sum + r_sum + node.val
+                self.ans = max(self.ans, total)
+
+                new_min = l_min if l_min is not None else node.val
+                new_max = r_max if r_max is not None else node.val
+
+                return True, new_min, new_max, total
+
+            return False, None, None, 0
+
+        dfs(root)
+        return self.ans
+
 
 a, b, c, d, e, f, g, h, i = TreeNode(1), TreeNode(4), TreeNode(3), TreeNode(2), TreeNode(4), TreeNode(2), TreeNode(5), TreeNode(4), TreeNode(6)
 # a.left, a.right, b.left, b.right, c.left, c.right, g.left, g.right = b, c, d, e, f, g, h , i
