@@ -5,26 +5,29 @@ class TreeNode(object):
         self.left = left
         self.right = right
 
+class Custom(object):
+    def __init__(self, sum, isBST, maxLeft, maxRight):
+        self.sum = sum
+        self.isBST = isBST
+        self.maxLeft = maxLeft
+        self.maxRight = maxRight
+
 class Solution(object):
     def maxSumBST(self, root):
-        self.best= 0
+        self.best, mini, maxi = 0, float('-inf'), float('inf')
         def solve(node):
             if not node:
-                return 0, True
-            left, right = solve(node.left),solve(node.right)
-            isBST = left[1] and right[1]
-            if not isBST:
-                return 0, False
-            if node.left and node.left.val >= node.val or node.right and node.right.val <= node.val:
-                isBST = False
-            if isBST:
-                value = left[0] + right[0] + node.val
-                self.best = max(self.best, value)
-                return value, True
-            return 0, False
+                return Custom(0, True, maxi, mini)
+            left, right = solve(node.left), solve(node.right)
+            if not left.isBST or not right.isBST or node.val <= left.maxRight or node.val >= right.maxLeft:
+                return Custom(0, False, left.maxLeft,  right.maxRight)
+            value = node.val + left.sum + right.sum
+            self.best = max(self.best, value)
+            return Custom(value, True, min(node.val, left.maxLeft), max(node.val, right.maxRight))
         solve(root)
         return self.best
 
 a, b, c, d, e, f, g, h, i = TreeNode(1), TreeNode(4), TreeNode(3), TreeNode(2), TreeNode(4), TreeNode(2), TreeNode(5), TreeNode(4), TreeNode(6)
-a.left, a.right, b.left, b.right, c.left, c.right, g.left, g.right = b, c, d, e, f, g, h , i
-print(Solution().maxSumBST(a))
+# a.left, a.right, b.left, b.right, c.left, c.right, g.left, g.right = b, c, d, e, f, g, h , i
+b.left, c.left, c.right = c, a, d
+print(Solution().maxSumBST(b))
