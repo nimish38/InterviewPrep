@@ -14,16 +14,19 @@ class Custom(object):
 
 class Solution(object):
     def maxSumBST(self, root):
-        self.best, mini, maxi = 0, float('-inf'), float('inf')
+        self.best = 0
         def solve(node):
             if not node:
-                return Custom(0, True, maxi, mini)
+                return Custom(0, True, None, None)
             left, right = solve(node.left), solve(node.right)
-            if not left.isBST or not right.isBST or node.val <= left.maxRight or node.val >= right.maxLeft:
-                return Custom(0, False, left.maxLeft,  right.maxRight)
-            value = node.val + left.sum + right.sum
-            self.best = max(self.best, value)
-            return Custom(value, True, min(node.val, left.maxLeft), max(node.val, right.maxRight))
+            if left.isBST and right.isBST and (left.maxRight is None or left.maxRight < node.val) and (right.maxLeft is None or node.val < right.maxLeft):
+                value = node.val + left.sum + right.sum
+                self.best = max(self.best, value)
+                new_min = left.maxLeft if left.maxLeft is not None else node.val
+                new_max = right.maxRight if right.maxRight is not None else node.val
+                return Custom(value, True, new_min, new_max)
+            return Custom(0, False, None, None)
+
         solve(root)
         return self.best
 
