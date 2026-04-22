@@ -1,7 +1,7 @@
 class Solution(object):
     def nextGreaterElement(self, nums1, nums2):
         maps, res, st = {}, [], []
-        for i in range(len(nums2), -1, -1):
+        for i in range(len(nums2) - 1, -1, -1):
             if not st:
                 st.append(nums2[i])
                 maps[nums2[i]] = -1
@@ -13,8 +13,8 @@ class Solution(object):
                 else:
                     maps[nums2[i]] = -1
                 st.append(nums2[i])
-
         for num in nums1:
             res.append(maps[num])
         return res
 
+print(Solution().nextGreaterElement(nums1 = [4,1,2], nums2 = [1,3,4,2]))
