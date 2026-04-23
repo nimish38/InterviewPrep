@@ -5,7 +5,9 @@ class Solution(object):
             if n:
                 curr += 1
             else:
-                best, curr = max(best, curr), 0
+                if curr > best:
+                    best = curr
+                curr = 0
         return max(best, curr)
 
 print(Solution().findMaxConsecutiveOnes(nums = [1,1,0,1,1,1]))
