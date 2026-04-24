@@ -15,7 +15,7 @@ class LFUCache(object):
         cnt, node = self.map[key]
         self.removeNode(cnt, node)
         self.addNode(cnt + 1, node)
-        self.map[key][1] += 1
+        self.map[key][0] += 1
         return node.val
 
     def put(self, key, value):
@@ -32,12 +32,13 @@ class LFUCache(object):
             node.val = value
 
     def removeLFU(self):
-        head, tail =  self.links[0]
+        first_key = next(iter(self.links))
+        head, tail =  self.links[first_key]
         lfu_node = tail.prev
         tail.prev, lfu_node.prev.next = lfu_node.prev, tail
         head.val -= 1
         if head.val == 0:
-            del self.links[0]
+            del self.links[first_key]
         del self.map[lfu_node.key]
 
     def addNode(self, cnt, node):
@@ -64,3 +65,14 @@ class LFUCache(object):
             head.val -= 1
 
 
+obj = LFUCache(2)
+obj.put(1,1)
+obj.put(2,2)
+print(obj.get(1))
+obj.put(3,3)
+print(obj.get(2))
+print(obj.get(3))
+obj.put(4,4)
+print(obj.get(1))
+print(obj.get(3))
+print(obj.get(4))
