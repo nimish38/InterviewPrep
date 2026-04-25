@@ -15,13 +15,15 @@ class Solution(object):
             for j in range(m + 1):
                 x.append([-1] * (n + 1))
             memo.append(x)
+        for i in range(len(strs)):
+            strs[i] = getVals(strs[i])
 
         def solve(ind, zeros, ones):
             if ind >= len(strs):
                 return 0
             if memo[ind][zeros][ones] == -1:
                 take, skip= 0, 0
-                z, o = getVals(strs[ind])
+                z, o = strs[ind]
                 if z <= zeros and o <= ones:
                     take = 1 + solve(ind + 1, zeros - z, ones - o)
                 skip = solve(ind + 1, zeros, ones)
