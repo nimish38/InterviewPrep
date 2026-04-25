@@ -10,16 +10,17 @@ class Solution(object):
                     o += 1
             return z, o
 
-        strs.sort(key=lambda x:len(x))
-        res, i = 0, 0
-        while m > 0 or n > 0:
-            zer, one = getVals(strs[i])
-            if zer <= m and one <= n:
-                m -= zer
-                n -= one
-                res += 1
-            i += 1
-        return res
+        def solve(ind, zeros, ones):
+            if ind >= len(strs):
+                return 0
+            take, skip= 0, 0
+            z, o = getVals(strs[ind])
+            if z <= zeros and o <= ones:
+                take = 1 + solve(ind + 1, zeros - z, ones - o)
+            skip = solve(ind + 1, zeros, ones)
+            return max(take, skip)
+
+        return solve(0, m, n)
 
 
-print(Solution().findMaxForm(strs = ["10","0","1"], m = 1, n = 1))
+print(Solution().findMaxForm(strs = ["10001110","11000","111110"], m = 6, n = 6))
