@@ -1,16 +1,15 @@
 class Solution(object):
     def longestValidParentheses(self, s):
-        st, best = [], 0
+        st, best = [-1], 0
         for i in range(len(s)):
             if s[i] =='(':
-                st.append(('(', i))
+                st.append(i)
             else:
-                if st and st[-1][0] == '(':
-                    st.pop()
-                    last = -1 if not st else st[-1][1]
-                    best = max(best, i - last)
+                st.pop()
+                if not st:
+                    st.append(i)
                 else:
-                    st.append((')', i))
+                    best = max(best, i - st[-1])
         return best
 
 print(Solution().longestValidParentheses(s = ")()())"))
