@@ -4,12 +4,13 @@ class Solution(object):
         for i in range(len(s)):
             c = s[i]
             if c == '+' or c =='-':
-                if i != 0 or s[i - 1] != 'e' or s[i - 1] != 'E':
-                    return False
-                if not sign1:
-                    sign1 = True
-                elif expo and not sign2:
-                    sign2 = True
+                if i == 0 or s[i - 1] == 'e' or s[i - 1] == 'E':
+                    if not sign1:
+                        sign1 = True
+                    elif expo and not sign2:
+                        sign2 = True
+                    else:
+                        return False
                 else:
                     return False
             elif c == '.':
@@ -32,4 +33,4 @@ class Solution(object):
         return left if not expo else left and right
 
 
-print(Solution().isNumber("95"))
+print(Solution().isNumber("-1E+3"))
