@@ -1,15 +1,18 @@
 class Solution(object):
     def maximalRectangle(self, matrix):
         m, n = len(matrix), len(matrix[0])
-        row = matrix[0].copy()
+        row = list(map(int, matrix[0].copy()))
 
         def getNSE(row):
             st, arr = [], [n] * n
             for i in range(n - 1, -1, -1):
                 if st:
-                    arr[i] = st[-1]
-                while st and row[i] <= row[st[-1]]:
-                    st.pop()
+                    while st and row[i] <= row[st[-1]]:
+                        st.pop()
+                    if st:
+                        arr[i] = st[-1]
+                    else:
+                        arr[i] = n
                 st.append(i)
             return arr
 
@@ -17,9 +20,12 @@ class Solution(object):
             st, arr = [], [-1] * n
             for i in range(n):
                 if st:
-                    arr[i] = st[-1]
-                while st and row[i] <= row[st[-1]]:
-                    st.pop()
+                    while st and row[i] <= row[st[-1]]:
+                        st.pop()
+                    if st:
+                        arr[i] = st[-1]
+                    else:
+                        arr[i] = -1
                 st.append(i)
             return arr
 
@@ -32,9 +38,12 @@ class Solution(object):
         area = getMaxArea(row)
         for r in range(1, m):
             for c in range(n):
-                if matrix[r][c]:
+                if matrix[r][c] == '1':
                     row[c] += 1
                 else:
                     row[c] = 0
             area = max(area, getMaxArea(row))
         return area
+
+
+print(Solution().maximalRectangle(matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]))
