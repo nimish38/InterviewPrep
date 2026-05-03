@@ -13,6 +13,16 @@ class Solution(object):
                 st.append(i)
             return arr
 
+        def getPSE(row):
+            st, arr = [], [-1] * n
+            for i in range(n):
+                if st:
+                    arr[i] = st[-1]
+                while st and row[i] <= row[st[-1]]:
+                    st.pop()
+                st.append(i)
+            return arr
+
         def getMaxArea(row):
             nse, pse, curr = getNSE(row), getPSE(row), 0
             for i in range(n):
