@@ -8,19 +8,22 @@ class TreeNode(object):
 class Solution(object):
     def generateTrees(self, n):
         lower, upper = 1, n
+        memo = [[-1] * n for _ in range(n)]
         def genBST(l, r):
             if l > r:
                 return [None]
-            res = []
-            for i in range(l, r + 1):
-                node = TreeNode(i)
-                X, Y = genBST(l, i - 1), genBST(i + 1, r)
-                for dx in X:
-                    node.left = dx
-                    for dy in Y:
-                        node.right = dy
-                        res.append(copy.deepcopy(node))
-            return res
+            if memo[l - 1][r - 1] == -1:
+                res = []
+                for i in range(l, r + 1):
+                    node = TreeNode(i)
+                    X, Y = genBST(l, i - 1), genBST(i + 1, r)
+                    for dx in X:
+                        node.left = dx
+                        for dy in Y:
+                            node.right = dy
+                            res.append(copy.deepcopy(node))
+                memo[l - 1][r - 1] = res
+            return memo[l - 1][r - 1]
         return genBST(lower, upper)
 
 z = Solution().generateTrees(3)
