@@ -1,3 +1,4 @@
+import copy
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -8,8 +9,8 @@ class Solution(object):
     def generateTrees(self, n):
         lower, upper = 1, n
         def genBST(l, r):
-            if l < lower or r > upper:
-                return None
+            if l > r:
+                return [None]
             res = []
             for i in range(l, r + 1):
                 node = TreeNode(i)
@@ -18,6 +19,9 @@ class Solution(object):
                     node.left = dx
                     for dy in Y:
                         node.right = dy
-                        res.append(node)
+                        res.append(copy.deepcopy(node))
             return res
         return genBST(lower, upper)
+
+z = Solution().generateTrees(3)
+print(z)
