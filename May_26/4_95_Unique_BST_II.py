@@ -1,4 +1,3 @@
-import copy
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -15,13 +14,10 @@ class Solution(object):
             if memo[l - 1][r - 1] == -1:
                 res = []
                 for i in range(l, r + 1):
-                    node = TreeNode(i)
                     X, Y = genBST(l, i - 1), genBST(i + 1, r)
                     for dx in X:
-                        node.left = dx
                         for dy in Y:
-                            node.right = dy
-                            res.append(copy.deepcopy(node))
+                            res.append(TreeNode(i, dx, dy))
                 memo[l - 1][r - 1] = res
             return memo[l - 1][r - 1]
         return genBST(lower, upper)
