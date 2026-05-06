@@ -6,24 +6,24 @@ class TreeNode(object):
 
 class Solution(object):
     def recoverTree(self, root):
-        nodes, curr, inorder, st = {}, root, [], []
+        st, prev, first, last, curr = [], TreeNode(float('-inf')), None, None, root
         while curr:
             st.append(curr)
             curr = curr.left
         while st:
             curr = st.pop()
-            inorder.append(curr.val)
-            nodes[curr.val] = curr
+            if curr.val < prev.val:
+                if not first:
+                    first, last = prev, curr
+                else:
+                    last = curr
+            prev = curr
             if curr.right:
                 curr = curr.right
                 while curr:
                     st.append(curr)
                     curr = curr.left
-        correct_inorder = sorted(inorder.copy())
-        for _ in range(len(inorder)):
-            if inorder[_] != correct_inorder[_]:
-                nodes[inorder[_]].val, nodes[correct_inorder[_]].val = correct_inorder[_], inorder[_]
-                break
+        first.val, last.val = last.val, first.val
         return root
 
 
