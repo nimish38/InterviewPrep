@@ -1,16 +1,17 @@
 class Solution(object):
     def numDistinct(self, s, t):
-        self.res = 0
+        memo = [[-1] * len(t) for _ in range(len(s))]
         def solve(i, j):
             if j == len(t):
-                self.res += 1
-                return
+                return 1
             if i == len(s):
-                return
-            if s[i] == t[j]:
-                solve(i + 1, j + 1)
-            solve(i + 1, j)
-        solve(0, 0)
-        return self.res
+                return 0
+            if memo[i][j] == -1:
+                memo[i][j] = 0
+                if s[i] == t[j]:
+                    memo[i][j] += solve(i + 1, j + 1)
+                memo[i][j] += solve(i + 1, j)
+            return memo[i][j]
+        return solve(0, 0)
 
-print(Solution().numDistinct(s = "rabbbit", t = "rabbit"))
+print(Solution().numDistinct(s = "babgbag", t = "bag"))
