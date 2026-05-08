@@ -7,7 +7,10 @@ class Solution(object):
         wordList = set(wordList)
         if endWord not in wordList:
             return []
-        que, used, level, ans = deque([[beginWord]]), [beginWord], 0, []
+        que, used, level, ans, chars = deque([[beginWord]]), [beginWord], 0, [], set()
+        for word in wordList:
+            for c in word:
+                chars.add(c)
         while que:
             seq = que.popleft()
             if len(seq) > level:
@@ -27,7 +30,7 @@ class Solution(object):
             last = list(last)
             for i in range(len(last)):
                 original = last[i]
-                for char in string.ascii_lowercase:
+                for char in chars:
                     last[i] = char
                     new_word = ''.join(last)
                     if new_word in wordList:
