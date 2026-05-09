@@ -1,44 +1,49 @@
-import string
 from collections import deque
 
 
-class Solution(object):
-    def findLadders(self, beginWord, endWord, wordList):
-        wordList = set(wordList)
-        if endWord not in wordList:
-            return []
-        que, used, level, ans, chars = deque([[beginWord]]), [beginWord], 0, [], set()
-        for word in wordList:
-            for c in word:
-                chars.add(c)
-        while que:
-            seq = que.popleft()
-            if len(seq) > level:
-                level += 1
-                for word in used:
-                    if word in wordList:
-                        wordList.remove(word)
-                used.clear()
-            last = seq[-1]
-            if last == endWord:
-                ans.append(seq)
-                while que:
-                    val = que.popleft()
-                    if val[-1] == endWord:
-                        ans.append(val)
-                return ans
-            last = list(last)
-            for i in range(len(last)):
-                original = last[i]
-                for char in chars:
-                    last[i] = char
-                    new_word = ''.join(last)
-                    if new_word in wordList:
-                        seq.append(new_word)
-                        que.append(seq.copy())
-                        used.append(new_word)
-                        seq.pop()
-                    last[i] = original
-        return ans
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList):
+        depthMap = {}
+        ans = []
 
-print(Solution().findLadders(beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]))
+        def dfs(word, seq):
+            if word == beginWord:
+                ans.append(seq[::-1])
+                return
+
+            steps = depthMap[word]
+            for i in range(len(word)):
+                original = word[i]
+                for ch in 'abcdefghijklmnopqrstuvwxyz':
+                    word = word[:i] + ch + word[i + 1:]
+                    if word in depthMap and depthMap[word] + 1 == steps:
+                        seq.append(word)
+                        dfs(word, seq)
+                        seq.pop()
+                word = word[:i] + original + word[i + 1:]
+
+        wordSet = set(wordList)
+        q = deque([beginWord])
+        depthMap[beginWord] = 1
+        wordSet.discard(beginWord)
+
+        while q:
+            word = q.popleft()
+            steps = depthMap[word]
+            if word == endWord:
+                break
+            for i in range(len(word)):
+                original = word[i]
+                for ch in 'abcdefghijklmnopqrstuvwxyz':
+                    word = word[:i] + ch + word[i + 1:]
+                    if word in wordSet:
+                        q.append(word)
+                        wordSet.discard(word)
+                        depthMap[word] = steps + 1
+                word = word[:i] + original + word[i + 1:]
+
+        if endWord in depthMap:
+            seq = [endWord]
+            dfs(endWord, seq)
+
+        return ans
