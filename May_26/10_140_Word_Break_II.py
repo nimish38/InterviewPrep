@@ -11,6 +11,10 @@ class Solution(object):
                     solve(ind + i, curr)
                     curr.pop()
         solve(0, [])
+
+
+        for _ in range(len(res)):
+            res[_] = ' '.join(res[_])
         return res
 
-print(Solution().wordBreak(s = "pineapplepenapple", wordDict = ["apple","pen","applepen","pine","pineapple"]))
+print(Solution().wordBreak(s = "catsanddog", wordDict = ["cat","cats","and","sand","dog"]))
