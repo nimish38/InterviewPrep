@@ -1,4 +1,5 @@
 import heapq
+from collections import defaultdict
 
 
 class Solution(object):
@@ -8,7 +9,7 @@ class Solution(object):
             cords.append((l, -h))
             cords.append((r, h))
         cords.sort()
-        pq, prev = [0], 0
+        pq, prev, deleted = [0], 0, defaultdict(int)
         for x, ht in cords:
             if ht < 0:
                 heapq.heappush(pq, ht)
@@ -16,11 +17,15 @@ class Solution(object):
                     res.append([x, -ht])
                     prev = -ht
             else:
-                pq.remove(-ht)
-                heapq.heapify(pq)
+                deleted[ht] += 1
+                while -pq[0] in deleted:
+                    deleted[-pq[0]] -= 1
+                    if deleted[-pq[0]] == 0:
+                        del deleted[-pq[0]]
+                    heapq.heappop(pq)
                 if -pq[0] != prev:
                     res.append([x, -pq[0]])
                     prev = -pq[0]
         return res
 
-print(Solution().getSkyline(buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]))
+print(Solution().getSkyline(buildings = [[1,2,1],[1,2,2],[1,2,3],[2,3,1],[2,3,2],[2,3,3]]))
