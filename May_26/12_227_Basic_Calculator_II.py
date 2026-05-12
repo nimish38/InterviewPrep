@@ -27,6 +27,8 @@ class Solution(object):
             else:
                 num += s[i]
             i += 1
+        if num:
+            st.append(int(num))
 
         res = st[0]
         for i in range(1, len(st), 2):
@@ -34,4 +36,4 @@ class Solution(object):
             res = oper(res, op2)
         return res
 
-print(Solution().calculate(s = "3+2*2"))
+print(Solution().calculate(s = "3"))
