@@ -1,7 +1,9 @@
 class Solution(object):
     def isPowerOfTwo(self, n):
+        if n < 0:
+            return False
         flag = False
-        for i in range(32):
+        for i in range(31):
             if n & 1:
                 if not flag:
                     flag = True
@@ -10,4 +12,4 @@ class Solution(object):
             n >>= 1
         return flag
 
-print(Solution().isPowerOfTwo(n = 1024))
+print(Solution().isPowerOfTwo(n = -2147483648))
