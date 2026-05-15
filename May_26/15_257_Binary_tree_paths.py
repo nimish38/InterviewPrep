@@ -6,15 +6,19 @@ class TreeNode(object):
 
 class Solution(object):
     def binaryTreePaths(self, root):
-        st, res = [(root, str(root.val))], []
+        st, res = [(root, '')], []
         while st:
             node, path = st.pop()
-            path += '->' + str(node.val)
+            path += str(node.val) + '->'
             if not node.left and not node.right:
-                res.append(path)
+                res.append(path[: len(path) - 2])
                 continue
             if node.left:
                 st.append((node.left, path))
-            st.append((node.right, path))
+            if node.right:
+                st.append((node.right, path))
         return res
 
+a, b, c, d = TreeNode(1), TreeNode(2), TreeNode(3), TreeNode(5)
+a.left = b
+print(Solution().binaryTreePaths(a))
