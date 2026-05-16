@@ -1,5 +1,13 @@
 class Solution(object):
-    def concatWithReverse(self, nums):
-        return nums + nums[::-1]
+    def minArraySum(self, nums):
+        nums.sort(reverse=True)
+        for i in range(len(nums) - 1):
+            j = len(nums) - 1
+            while i < j and nums[i] > nums[j]:
+                if nums[i] % nums[j] == 0:
+                    nums[i] = nums[j]
+                    break
+                j -= 1
+        return sum(nums)
 
-print(Solution().concatWithReverse([1,2,3]))
+print(Solution().minArraySum(nums = [4,2,8,3]))
